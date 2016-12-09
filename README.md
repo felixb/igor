@@ -68,7 +68,7 @@ igor --help
 ## Specify an igor config
 
 Run igor with `-c path-to-igor-config` to start a specific container.
-Checkout the example configs in this repo.
+Checkout the [example configs](example) in this repo.
 
 ## Contributing
 
