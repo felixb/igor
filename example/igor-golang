@@ -1,0 +1,6 @@
+# example igor config for compiling your golang code
+
+IGOR_DOCKER_IMAGE=golang
+IGOR_DOCKER_COMMAND=bash
+IGOR_MOUNT_PASSWD=1
+IGOR_MOUNT_GROUP=1

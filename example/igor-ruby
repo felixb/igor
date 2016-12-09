@@ -1,0 +1,4 @@
+# example igor config for running a ruby container
+
+IGOR_DOCKER_IMAGE=ruby
+IGOR_DOCKER_COMMAND=bash

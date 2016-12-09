@@ -17,24 +17,42 @@ IGOR_WORKDIR=${PWD}        # use this workdir inside the container
 IGOR_WORKDIR_MODE=rw       # mount the workdir with this mode (ro/rw)
 IGOR_ENV=''                # space separated list of environment variables set inside the container
 
-if [ "${1}" == '-v' ]; then
-    shift
-    set -x
-fi
+igor_config=.igor.sh
 
-if [ "${1}" == '--help' ]; then
-    echo "$0 - opens a shell in your favorite docker container"
+function usage() {
+    echo "$0 [-v] [-c path-to-igor-config] [--help]"
     echo ''
-    echo 'configuration:'
+    echo 'Opens a shell in your favorite docker container mounting your current workspace into the container'
     echo ''
-    echo ' - ~/.igor.sh is evaluated if available'
-    echo ' - ./.igor.sh is evaluated if available'
+    echo 'configuration files:'
+    echo ''
+    echo '~/.igor.sh'
+    echo './.igor.sh or file specified with -c option'
     echo ''
     echo 'default config:'
     echo ''
     grep '^IGOR_' $0
     echo ''
     exit 1
+}
+
+# ugly command line parsing
+if [ "${1}" == '-v' ]; then
+    shift
+    set -x
+fi
+
+if [ "${1}" == '-c' ]; then
+    if [ -z "${2}" ] || ! [ -e "${2}" ]; then
+        usage
+    fi
+    igor_config="${2}"
+    shift
+    shift
+fi
+
+if [ "${1}" == '--help' ]; then
+    usage
 fi
 
 # load config from home
@@ -43,8 +61,8 @@ if [ -e "${HOME}/.igor.sh" ]; then
 fi
 
 # load config from current working dir
-if [ -e '.igor.sh' ]; then
-    . '.igor.sh'
+if [ -e "${igor_config}" ]; then
+    . "${igor_config}"
 fi
 
 # assamble command line
