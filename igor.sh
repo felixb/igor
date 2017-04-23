@@ -1,5 +1,13 @@
 #! /bin/bash
 
+# This is igor.
+
+# Original project: https://github.com/felixb/igor
+
+# Install / update:
+#   sudo curl https://raw.githubusercontent.com/felixb/igor/master/igor.sh -o /usr/local/bin/igor
+#   sudo chmod +x /usr/local/bin/igor
+
 set -e
 
 # set up default values
