@@ -52,6 +52,7 @@ IGOR_DOCKER_TTY=1          # open an interactive tty (0/1)
 IGOR_DOCKER_USER=$(id -u)  # run commands inside the container with this user
 IGOR_DOCKER_GROUP=$(id -g) # run commands inside the container with this group
 IGOR_DOCKER_ARGS=''        # default arguments to docker run
+IGOR_PORTS=''              # space separated list of ports to expose
 IGOR_MOUNT_PASSWD=0        # mount /etc/passwd inside the container (0/1)
 IGOR_MOUNT_GROUP=0         # mount /etc/group inside the container (0/1)
 IGOR_MOUNTS_RO=''          # space seperated list of volumes to mount read only
