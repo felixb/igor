@@ -114,7 +114,7 @@ done
 exec docker run \
     ${args} \
     -u "${IGOR_DOCKER_USER}:${IGOR_DOCKER_GROUP}" \
-    -v "${PWD}:${IGOR_WORKDIR}:rw" \
+    -v "${PWD}:${IGOR_WORKDIR}:${IGOR_WORKDIR_MODE}" \
     -w "${IGOR_WORKDIR}" \
     ${IGOR_DOCKER_ARGS} \
     "${IGOR_DOCKER_IMAGE}" \
