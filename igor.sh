@@ -31,11 +31,12 @@ IGOR_ENV=''                # space separated list of environment variables set i
 igor_config=.igor.sh
 
 function usage() {
-    echo "$0 [-v|--verbose] [-c|--config path-to-igor-config] [-h|--help]"
+    echo "$0 [-v|--verbose] [-c|--config path-to-igor-config] [-i|--init] [-h|--help]"
     echo ''
     echo 'Opens a shell in your favorite docker container mounting your current workspace into the container'
     echo ''
     echo '  -c --config  specify igor config directory'
+    echo '  -i --init    create empty igor config in current working directory'
     echo '  -v --verbose prints debug messages'
     echo '  -h --help    prints this message'
     echo ''
@@ -51,6 +52,19 @@ function usage() {
     exit 1
 }
 
+function init() {
+  set -o posix
+  echo '# igor config' > .igor.sh
+  echo '# Original project: https://github.com/felixb/igor' >> .igor.sh
+  echo '# Install / update:' >> .igor.sh
+  echo '#   sudo curl https://raw.githubusercontent.com/felixb/igor/master/igor.sh -o /usr/local/bin/igor' >> .igor.sh
+  echo '#   sudo chmod +x /usr/local/bin/igor' >> .igor.sh
+  echo '' >> .igor.sh
+  set | grep ^IGOR_ | sed -e 's/^/#/' >> .igor.sh
+  echo 'default igor config saved to .igor.sh'
+  exit 0
+}
+
 # ugly command line parsing
 while [[ $# -gt 0 ]]; do
   if [ "${1}" == '-v' ] || [[ "${1}" == '--verbose' ]]; then
@@ -63,6 +77,8 @@ while [[ $# -gt 0 ]]; do
       igor_config="${2}"
       shift
       shift
+  elif [[ "${1}" == '-i' ]] || [[ "${1}" == '--init' ]]; then
+      init
   elif [[ "${1}" == '-h' ]] || [[ "${1}" == '--help' ]]; then
       usage
   elif [[ "${1}" == '--' ]]; then

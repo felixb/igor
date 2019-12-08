@@ -68,10 +68,16 @@ IGOR_WORKDIR_MODE=rw       # mount the workdir with this mode (ro/rw)
 IGOR_ENV=''                # space separated list of environment variables set inside the container
 ```
 
-To see all available options launch:
+Run this to see a list of all available options:
 
 ```shell
 igor --help
+```
+
+## Generating an empty igor config:
+
+```shell
+igor --init
 ```
 
 ## Specify an igor config
