@@ -31,9 +31,13 @@ IGOR_ENV=''                # space separated list of environment variables set i
 igor_config=.igor.sh
 
 function usage() {
-    echo "$0 [-v] [-c path-to-igor-config] [--help]"
+    echo "$0 [-v|--verbose] [-c|--config path-to-igor-config] [-h|--help]"
     echo ''
     echo 'Opens a shell in your favorite docker container mounting your current workspace into the container'
+    echo ''
+    echo '  -c --config  specify igor config directory'
+    echo '  -v --verbose prints debug messages'
+    echo '  -h --help    prints this message'
     echo ''
     echo 'configuration files:'
     echo ''
@@ -49,17 +53,17 @@ function usage() {
 
 # ugly command line parsing
 while [[ $# -gt 0 ]]; do
-  if [ "${1}" == '-v' ]; then
+  if [ "${1}" == '-v' ] || [[ "${1}" == '--verbose' ]]; then
       shift
       set -x
-  elif [[ "${1}" == '-c' ]]; then
+  elif [[ "${1}" == '-c' ]] || [[ "${1}" == '--config' ]]; then
       if [ -z "${2}" ] || ! [ -e "${2}" ]; then
           usage
       fi
       igor_config="${2}"
       shift
       shift
-  elif [[ "${1}" == '--help' ]]; then
+  elif [[ "${1}" == '-h' ]] || [[ "${1}" == '--help' ]]; then
       usage
   elif [[ "${1}" == '--' ]]; then
       shift
