@@ -48,23 +48,26 @@ function usage() {
 }
 
 # ugly command line parsing
-if [ "${1}" == '-v' ]; then
-    shift
-    set -x
-fi
-
-if [ "${1}" == '-c' ]; then
-    if [ -z "${2}" ] || ! [ -e "${2}" ]; then
-        usage
-    fi
-    igor_config="${2}"
-    shift
-    shift
-fi
-
-if [ "${1}" == '--help' ]; then
-    usage
-fi
+while [[ $# -gt 0 ]]; do
+  if [ "${1}" == '-v' ]; then
+      shift
+      set -x
+  elif [[ "${1}" == '-c' ]]; then
+      if [ -z "${2}" ] || ! [ -e "${2}" ]; then
+          usage
+      fi
+      igor_config="${2}"
+      shift
+      shift
+  elif [[ "${1}" == '--help' ]]; then
+      usage
+  elif [[ "${1}" == '--' ]]; then
+      shift
+      break
+  else
+      break
+  fi
+done
 
 # load config from home
 if [ -e "${HOME}/.igor.sh" ]; then
@@ -115,4 +118,5 @@ exec docker run \
     -w "${IGOR_WORKDIR}" \
     ${IGOR_DOCKER_ARGS} \
     "${IGOR_DOCKER_IMAGE}" \
-    ${IGOR_DOCKER_COMMAND}
+    ${IGOR_DOCKER_COMMAND} \
+    "${@}"

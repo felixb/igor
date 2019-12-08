@@ -39,6 +39,12 @@ total 12
 -rwxr-xr-x    1 1000     1000          2269 Dec  9 20:52 igor.sh
 ```
 
+Passing arguments to configured `CMD` is possible too, `--` ends igors argument list:
+```shell
+(master) flx@t490s:~/dev/igor$ igor -- -c id
+uid=1000(flx) gid=1000(flx)
+```
+
 Igor sources config from `~/.igor.sh` and `./.igor.sh` if available.
 
 The following options are available as of writing this:
