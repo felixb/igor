@@ -53,14 +53,13 @@ function usage() {
 }
 
 function init() {
-  set -o posix
-  echo '# igor config' > .igor.sh
+  echo '# This is igors config' > .igor.sh
   echo '# Original project: https://github.com/felixb/igor' >> .igor.sh
   echo '# Install / update:' >> .igor.sh
   echo '#   sudo curl https://raw.githubusercontent.com/felixb/igor/master/igor.sh -o /usr/local/bin/igor' >> .igor.sh
   echo '#   sudo chmod +x /usr/local/bin/igor' >> .igor.sh
   echo '' >> .igor.sh
-  set | grep ^IGOR_ | sed -e 's/^/#/' >> .igor.sh
+  grep '^IGOR_' $0 >> .igor.sh
   echo 'default igor config saved to .igor.sh'
   exit 0
 }
